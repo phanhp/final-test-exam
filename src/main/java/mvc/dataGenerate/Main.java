@@ -150,7 +150,7 @@ public class Main {
                 }
                 orderDetail.setQuantity(quantity);
 
-                int productId = 1;
+                int productId = 1+j;
                 if (i % 4 == 0) {
                     productId = 3 * i + 17 * j;
                 } else if (i % 6 == 0) {
