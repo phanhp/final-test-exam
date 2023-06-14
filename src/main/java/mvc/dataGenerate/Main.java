@@ -110,24 +110,71 @@ public class Main {
 
     public void createOrder() {
         LocalDate date = LocalDate.of(2019, 8, 21);
-        for (int i = 1; i <= 6; i++) {
-            Order order = new Order(date, "customer_" + i);
+        ArrayList<String> customerNameList = new ArrayList<>();
+        for (int i = 1; i <= 4; i++) {
+            customerNameList.add("Customer_" + i);
+        }
+        customerNameList.add("Passersby");
+
+        for (int i = 1; i <= 60; i++) {
+            Order order = new Order();
+            order.setOrderDate(date);
+            if (i % 5 == 0) {
+                order.setCustomerName(customerNameList.get(0));
+            } else if (i % 7 == 0) {
+                order.setCustomerName(customerNameList.get(1));
+            } else if (i % 11 == 0) {
+                order.setCustomerName(customerNameList.get(2));
+            } else if (i % 13 == 0) {
+                order.setCustomerName(customerNameList.get(3));
+            } else {
+                order.setCustomerName(customerNameList.get(4));
+            }
+
             List<OrderDetail> details = new ArrayList<>();
-            for (int j = 1; j <= 3; j++) {
-                OrderDetail orderDetail = new OrderDetail(2 + j + i);
-                orderDetail.setProduct(productRepository.findProductById(4 * i - j));
+            int numberBuy = 1;
+            if (i % 4 == 0) {
+                numberBuy = 2;
+            } else if (i % 7 == 0) {
+                numberBuy = 3;
+            } else if (i % 15 == 0) {
+                numberBuy = 5;
+            }
+            for (int j = 1; j <= numberBuy; j++) {
+                OrderDetail orderDetail = new OrderDetail();
+                int quantity = 1;
+                if (i % 2 == 0 && j % 2 == 0) {
+                    quantity = 2;
+                } else if (i % 3 == 0 && j % 3 == 0) {
+                    quantity = 3;
+                }
+                orderDetail.setQuantity(quantity);
+
+                int productId = 1;
+                if (i % 4 == 0) {
+                    productId = 3 * i + 17 * j;
+                } else if (i % 6 == 0) {
+                    productId = 21 * i + 14 * j;
+                } else if (i % 11 == 0) {
+                    productId = 5 * i + 14 * j;
+                }
+                if (productId > 500) {
+                    productId = 500;
+                }
+                orderDetail.setProduct(productRepository.findProductById(productId));
                 orderDetail.setOrder(order);
                 details.add(orderDetail);
             }
             order.setOrderDetail(details);
-
             orderRepository.save(order);
             for (int j = 0; j < details.size(); j++) {
                 orderDetailRepository.save(details.get(j));
             }
-
-
-            date = date.plusDays(3);
+            if (i % 3 == 0) {
+                date = date.plusDays(1);
+            } else if (i % 7 == 0) {
+                date = date.plusDays(2);
+            }
         }
     }
 
