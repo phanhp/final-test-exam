@@ -54,7 +54,7 @@ public class PageController {
     //search orderlist by customer name, order date, product name
     //Cách 1, tạo 3 querry rồi add vào map
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public String findOrderBySearch(@RequestParam("searchInput") String searchValue, Model model) {
+    public String findOrderBySearchToHomePage(@RequestParam("searchInput") String searchValue, Model model) {
         Map<Integer, Order> map = new HashMap<>();
         List<Order> fromCustomerName = orderRepository.findOrderByCustomerName(searchValue);
         if (fromCustomerName != null) {

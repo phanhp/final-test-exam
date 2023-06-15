@@ -25,17 +25,6 @@
                     <jsp:include page="header.jsp" />
                     <div class="contain pt-10">
                         <!-- Input group -->
-                        <form:form action="search" method="get">
-                            <div class="d-flex ">
-                                <div class="input-group w-auto">
-                                    <input name="searchInput" type="text" class="form-control"
-                                        placeholder="Search input" aria-label="Search input" />
-                                    <button class="btn btn-primary" type="submit" data-mdb-ripple-color="dark">Search
-                                    </button>
-                                </div>
-                            </div>
-                        </form:form>
-
                         <div class="mt-10">
                             <p>
                                 <c:out value="${msg}" />
